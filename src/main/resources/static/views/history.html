@@ -1,0 +1,91 @@
+<div class="container myContainerBody" ng-controller="historyController" style="margin-top:85px;">
+    <div class="jumbotron jumbotron-fluid" style="background: transparent; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+      <div class="card text-center" style="margin-top: -40px">
+        <div class="card-header text-white myCardHeader">
+         <h4 class="text-left" style="cursor:pointer;"><i class="fas fa-clipboard" style="margin-right: 6px;"></i>Summary History <b>Details</b></h4>
+         <h6 class="text-right" style="margin-top: -25px;"><a href="#" ng-click="myHistory()" style="color: white"><i class="fas fa-history fa-flip-horizontal"></i><b style="margin-left: 8px">Reload history</b></a></h6>
+      
+        </div>
+
+        <div class="card-body">
+           <div class="table-wrapper" style="margin-top:-10px;">      
+              <div class="table-title">
+                <div class="row">
+                  <div class="col-sm-4">
+                    <div class="show-entries" style="float: left;">
+                      <span>Show</span>
+                      <select>
+                        <option>10</option>
+                        <option>15</option>
+                        <option>20</option>                        
+                        <option>25</option>
+                      </select>
+                      <span>entries</span>
+                    </div>            
+                  </div>
+                  <div class="col-sm-4">
+                    
+                  </div>
+                  <div class="col-sm-4">
+                    <div class="search-box">
+                      <div class="input-group">
+                        <i class="fas fa-search"></i>
+                        <input type="text" ng-model="searchKeyword" class="form-control" placeholder="Search...">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <table class="table table-bordered table-hover" style="margin-top: 10px;">
+                  <thead>
+                      <tr>
+                          <th>S.No.</th>
+                          <th>Source <i class="fa fa-sort"></i></th>
+                          <th>Summary<i class="fa fa-sort"></i></th>
+                          <th>Time Consumed <i class="fa fa-sort"></i></th>
+                          <th>Actions</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+	                  <div ng-show="histories.length>0">
+			      	  <tr ng-repeat="history in histories|filter:searchKeyword">
+				        <th scope="row" ng-if="$even" style="background-color:#1affd1">{{$index + 1}}</td>
+				        <td ng-if="$odd">{{$index + 1}}</td>
+				        <td ng-if="$even" style="background-color:#ccffcc"><div class="scrollabeColumn">{{history.source}}</div></td> 
+				        <td ng-if="$odd"><div class="scrollabeColumn">{{history.source}}</div></td>             
+				        <td ng-if="$even" style="background-color:#ccffcc"><div class="scrollabeColumn">{{history.summary}}</div></td>
+				        <td ng-if="$odd"><div class="scrollabeColumn">{{history.summary}}</div></td>
+				        <td ng-if="$even" style="background-color:#ccffcc;width:10px">{{history.timeConsumed}}</td>
+				        <td ng-if="$odd" style="width:10px;">{{history.timeConsumed}}</td>
+				        <td ng-if="$even" style="background-color:#ccffcc">
+				         <a href="#" class="view" title="View" data-toggle="tooltip"><i class="fas fa-eye" style="color:#E34724;margin-right: 8px"></i></a>
+				         <a href="#" download="Summary.txt" ng-href="{{ downloadUrl }}" ng-click="downloadHistory(history.summary)" class="download" title="Download" data-toggle="tooltip" style="cursor:pointer;"><i class="fas fa-download" style="color:#00e600;margin-right: 8px"></i></a>
+				         <a href="#" ng-click="deleteRow($index,(history.id))" class="delete" title="Delete" data-toggle="tooltip"><i class="fas fa-trash" style="color:#03A9F4;margin-right: 8px"></i></a></td>
+				        <td ng-if="$odd">
+				         <a href="#" class="view" title="View" data-toggle="tooltip"><i class="fas fa-eye" style="color:#E34724;margin-right: 8px"></i></a>
+				         <a href="#" download="Summary.txt" ng-href="{{ downloadUrl }}" ng-click="downloadHistory(history.summary)" class="download" title="Download" data-toggle="tooltip" style="cursor:pointer;"><i class="fas fa-download" style="color:#00e600;margin-right: 8px"></i></a>
+				         <a href="#" ng-click="deleteRow($index,(history.id))" class="delete" title="Delete" data-toggle="tooltip"><i class="fas fa-trash" style="color:#03A9F4;margin-right: 8px"></i></a></td>
+				       </tr>
+		     		 </div> 
+                  </tbody>
+              </table>
+              <div class="clearfix">
+                  <div class="hint-text">Showing <b>{{historyLen}}</b> out of <b>{{historyLen}}</b> entries</div>
+                  <ul class="pagination">
+                      <li class="page-item disabled"><a href="#">Previous</a></li>
+                      <li class="page-item active"><a href="#" class="page-link">1</a></li>
+                      <li class="page-item"><a href="#" class="page-link">2</a></li>
+                      <li class="page-item"><a href="#" class="page-link">3</a></li>
+                      <li class="page-item"><a href="#" class="page-link">4</a></li>
+                      <li class="page-item"><a href="#" class="page-link">5</a></li>
+                      <li class="page-item"><a href="#" class="page-link">Next</a></li>
+                  </ul>
+              </div>
+          </div>
+        </div>
+        <div class="card-footer text-muted">
+          <!--  <p><h4>Footer Button</h4></p> -->            
+        </div>
+      </div>
+    </div>
+  </div>

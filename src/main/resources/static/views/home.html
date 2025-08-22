@@ -1,0 +1,85 @@
+<div class="container" align="center">
+	<div class="span6 offset3" ng-controller="summaryController"
+		ng-init="source.sentenceNumber=4">
+		<form method="post" name="analyse" style="margin-top: 80px;">
+			<h1 class="text-dark"
+				style="font-family: 'Poppins', Helvetica, Arial, sans-serif; font-weight: 600 !important;">
+				<strong>Text Summarizer</strong>
+			</h1>
+			<table>
+				<tr>
+					<p style="font-family: 'Poppins'; font-size: 30px;">Input the page url and get summary quickly</p>
+					<textarea id="url" ng-model="source.sourceUrl" maxlength="1000"
+						name="url" placeholder="Please enter the valid URL" size="500"></textarea>
+					<input class="btn btn-dark"
+						ng-click="getSourceContent()"
+						style="margin-bottom: 30px; margin-left: 10px; height: 40px;"
+						type="submit" value="Enter" />
+					<p ng-hide="urlError==null" style="color: red; margin-top: -27px;">{{urlError}}</p>
+					<p style="margin-top: -23px;">
+						<strong>Or Copy and paste your text in below box</strong>
+					</p>
+					<textarea id="textBox" ng-model="source.sourceText"
+						maxlength="50000" name="text" size="1000"
+						placeholder="Type text or copy and paste your text"></textarea>
+					<p style="color: red;">{{sourceError}}</p>
+
+					<div class="upload-btn-wrapper">
+						<p style="float: left; margin-top: 5px; margin-right: 5px;">
+							<strong>Or Upload a Document:</strong>
+						</p>
+						<button class="btn btn-outline-dark btn-large myFileBtn">
+							<i class="fas fa-folder-open"></i> Upload file
+						</button>
+						<input type="file" ng-model="csv"
+							onchange="angular.element(this).scope().fileChanged()"
+							type="file" accept=".csv,.doc,.docx,.txt" id="fileInput" />
+					</div>
+
+					<p>Enter summary length in number of sentence:</p>
+					<input id="sentenceNum" ng-model="source.sentenceNumber"
+						maxlength="100" name="sentnum" placeholder="Enter number"
+						size="50" type="text">
+					<p ng-hide="numberError==null" style="color: red;">{{numberError}}</p>
+				</tr>
+			</table>
+		</form>
+
+		<input class="btn btn-dark btn-large" style="margin-top: 10px"
+			ng-click="summarizer()" type="submit" value="Summarize Now">
+		<div ng-show="mysummary.length>0">
+			<table>
+				<tr>
+					<h2>
+						<strong>The Summary for your text is:</strong>
+					</h2>
+					<hr style="background: #007BFF">
+					<button class="btn btn-primary btn-large text-white">
+						<i class="far fa-copy" onclick="copySummary();"
+							data-toggle="tooltip" title="Copy text"></i> Copy
+					</button>
+					<p ng-repeat="summary in mysummary track by $index">
+						<strong> {{summary}}</strong>
+					</p>
+					<hr style="background: #007BFF">
+					<p>
+						<strong>Download summary with: </strong>
+					</p>
+					<a href="#" download="Summary.txt" ng-href="{{ downloadUrl }}" ng-click="downloadText(myFinal);" class="download" style="cursor:pointer;">
+					<button class="btn btn-primary btn-large text-white" style="margin-right: 10px" data-toggle="tooltip" title="Download in text file">
+						<i class="far fa-file-alt"></i> Download Text
+					</button></a>
+					<a href="#" download="Summary.doc" ng-href="{{ downloadUrl }}" ng-click="downloadWord(myFinal);" class="download" style="cursor:pointer;">
+					<button class="btn btn-primary btn-large text-white" style="margin-right: 10px" data-toggle="tooltip" title="Download in word filet">
+						<i class="far fa-file-word"></i> Download Word
+					</button></a>
+					<a href="#" download="Summary.pdf" ng-href="{{ downloadUrl }}" ng-click="downloadPdf(myFinal);" class="download" style="cursor:pointer;">
+					<button class="btn btn-primary btn-large text-white" data-toggle="tooltip" title="Download in pdf file">
+						<i class="far fa-file-pdf"></i> Download PDF
+					</button>
+					<!--  <textarea  onload="myFunction()" id="summary" ng-show="isSummary==true" maxlength="50000" name="text" size="5000" style="width:600px;height:250px;">{{myFinal}}</textarea>-->
+				</tr>
+			</table>
+		</div>
+	</div>
+</div>

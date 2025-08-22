@@ -1,0 +1,391 @@
+ body{
+     /*   background-image:url("../images/h.jpg");*/
+     /*	background: #f2f2f2;*/
+     	 background: #F8F8F8;
+         background-size:cover;
+
+       }
+       
+       #myNav{
+		background:#212121;
+		/*background:#2bbbad!important;*/
+		padding-left: 50px; 
+		padding-right: 110px;
+		}
+  	#loading{
+		position: fixed;
+		width: 100%;
+		height: 100vh;
+		background:#F8F8F8
+		url("../images/Materialwaveloading.gif")
+		no-repeat center center;	
+		z-index: 99999;
+	}
+
+       .dropdown:hover>.dropdown-menu {
+        animation-name: slidenavAnimation;
+        animation-duration:.2s;
+        animation-iteration-count: 1;
+        animation-timing-function: ease;
+        animation-fill-mode: forwards;
+        
+        -webkit-animation-name: slidenavAnimation;
+        -webkit-animation-duration:.2s;
+        -webkit-animation-iteration-count: 1;
+        -webkit-animation-timing-function: ease;
+        -webkit-animation-fill-mode: forwards;
+        
+        -moz-animation-name: slidenavAnimation;
+        -moz-animation-duration:.2s;
+        -moz-animation-iteration-count: 1;
+        -moz-animation-timing-function: ease;
+        -moz-animation-fill-mode: forwards;
+      }
+      @keyframes slidenavAnimation {
+        from {
+          -webkit-transform: scale(0.5);
+        }
+        to {
+          -webkit-transform: scale(1);
+        }
+      }
+      @-webkit-keyframes slidenavAnimation {
+        from {
+          -webkit-transform: scale(0.5);
+        }
+        to {
+          -webkit-transform: scale(1);
+        }
+      }   
+     #or{
+     width: 100%; 
+     text-align: center; 
+     border-bottom: 1px solid #ddd; 
+     line-height: 0.1em;
+     margin: 10px 0 20px; 
+     color: #9e9e9e;
+   } 
+
+	   #or span { 
+	    background:#fff; 
+	    padding:0 10px; 
+	  }
+	  
+	  .box .inputBox{
+	    position: relative;
+	  }
+	  .box .inputBox input{
+	    width: 100%;
+	    padding: 10px 0;
+	    color: #212121;
+	    font-family: 'Playfair Display', serif;
+	    font-size: 20px;
+	    margin-bottom: 30px;
+	    border:none;
+	    outline: none;
+	    border-bottom:1px solid #ddd;
+	    background: transparent;
+	  }
+	
+	  .box .inputBox label{
+	    position: absolute;
+	    top: 0;
+	    left: 0;
+	    padding: 10px 0;
+	    font-size: 18px;
+	    color: #9e9e9e;
+	    pointer-events: none;
+	    font-weight: 400;
+	    transition: .5s;
+	  }
+	  .box .inputBox input:focus{
+	    border-bottom: 2px solid #55aa29;
+	  }
+	
+	  .box .inputBox input:focus ~ label,
+	  .box .inputBox input:valid ~ label{
+	    top: -18px;
+	    left: 0;
+	    color: #55aa29;
+	    font-size: 12px;
+	  }
+	  
+	   .box .inputBox input[type=email].ng-touched ~ label{
+	    top: -18px;
+	    left: 0;
+	    color: #55aa29;
+	    font-size: 12px;
+	  }
+	 
+	
+	  .box .inputBox input.ng-touched{
+	      background-image: url("../images/exit1.png");
+	      background-position: right top;
+	      background-repeat: no-repeat;
+	      border-bottom:1px solid red;
+	}
+	
+	
+	 .box .inputBox input.ng-valid 
+	 {
+	    background-image: url("../images/confirm1.png");
+	    background-position: right top;
+	    background-repeat: no-repeat;
+	    border-bottom:1px solid #55aa29;
+	  }
+	
+	 /* For Url Text Box CSS*/
+	#url{  
+	
+	      width:600px;height:40px;
+	      padding:5px 10px;
+	      text-align: center;
+	      font-family: 'Times New Roman', Times, serif;
+	     /* background: transparent;*/
+	      border-radius: 5px;
+	    /*  background-color: rgba(255,255,255,.7)*/
+	     -webkit-box-shadow: 0px 7px 9px -8px rgba(0,0,0,0.75);
+		 -moz-box-shadow: 0px 7px 9px -8px rgba(0,0,0,0.75);
+	      box-shadow: 0px 7px 9px -8px rgba(0,0,0,0.75);
+	}
+	
+	 /* For Source Text Box CSS*/
+	#textBox,#summary{
+	  width:600px;height:250px;
+	  background-color:rgba(255,255,255,0.8);
+	  text-align: justify; padding: 20px 30px;
+	  font-family: 'Times New Roman', Times, serif;
+	  margin-top: 10px;
+	  border-radius: 5px;
+	   -webkit-box-shadow: 0px 3px 13px 2px rgba(0,0,0,0.75);
+	  -moz-box-shadow: 0px 3px 13px 2px rgba(0,0,0,0.75);
+	   box-shadow: 0px 3px 13px 2px rgba(0,0,0,0.75);
+	}
+	
+	/* For Sentence Number CSS*/
+	#sentenceNum{
+	  width:110px;
+	  height:30px;
+	  background-color:rgba(255,255,255,0.8);
+	  font-size: 15px;
+	  padding:6px 4px;
+	  font-weight: bold;
+	  font-family: 'Times New Roman', Times, serif;
+	
+	}
+
+
+		/* Css For History Page */
+		
+		.myContainerBody {
+          color: #566787;
+          background: #f5f5f5;
+          font-family: 'Roboto', sans-serif;
+        }
+        .table-wrapper {
+              background: #fff;
+              padding: 20px;
+              margin: 30px 0;
+              box-shadow: 0 1px 1px rgba(0,0,0,.05);
+          }
+        .table-title select {
+          border-color: #ddd;
+          border-width: 0 0 1px 0;
+          padding: 3px 10px 3px 5px;
+          margin: 0 5px;
+        }
+        .table-title .show-entries {
+          margin-top: 7px;
+        }
+      .search-box {
+            position: relative;
+            float: right;
+        }
+      .search-box .input-group {
+        min-width: 200px;
+        position: absolute;
+        right: 0;
+      }
+      .search-box .input-group-addon, .search-box input {
+        border-color: #ddd;
+        border-radius: 0;
+      }
+      .search-box .input-group-addon {
+        border: none;
+        border: none;
+        background: transparent;
+        position: absolute;
+        z-index: 9;
+      }
+        .search-box input {
+            height: 34px;
+            padding-left: 28px;   
+            box-shadow: none !important;
+            border-width: 0 0 1px 0;
+      }
+      .search-box input:focus {
+    	border-bottom:1px solid #55aa29;
+        
+      }
+      .search-box i {
+          color: #a0a5b1;
+          font-size: 19px;
+          position: relative;
+          top: 2px;
+          left: -10px;
+        }   
+      .pagination {
+          float: right;
+          margin: 0 0 5px;
+        }
+      .pagination li a {
+          border: none;
+          font-size: 13px;
+          min-width: 30px;
+          min-height: 30px;
+          padding: 0 10px;
+          color: #999;
+          margin: 0 2px;
+          line-height: 30px;
+          border-radius: 30px !important;
+          text-align: center;
+        }
+      .pagination li a:hover {
+          color: #666;
+        } 
+      .pagination li.active a {
+          background: #03A9F4;
+        }
+      .pagination li.active a:hover {        
+          background: #0397d6;
+        }
+      .pagination li.disabled i {
+          color: #ccc;
+      }
+      .pagination li i {
+          font-size: 16px;
+          padding-top: 6px
+      }
+      .hint-text {
+        float: left;
+        margin-top: 10px;
+        font-size: 13px;
+      }
+
+      .myCardHeader{
+        width:102%;
+        border-radius: 4px;
+        align-self: center;
+        height: 55px;
+        background: linear-gradient(to right, #00ccff 0%, #004d99 100%);
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+      }
+      
+    /* css for scrollable column*/
+    .scrollabeColumn{
+        width:300px; height:80px;margin-right: -100px; overflow-y:scroll;
+      }
+
+	/* css for file upload button*/
+      .upload-btn-wrapper {
+		  position: relative;
+		  overflow: hidden;
+		  display: inline-block;
+		}
+		
+		.myFileBtn {
+		  color: black;
+		  padding: 8px 15px;
+		  border-radius: 8px;
+		  font-size: 16px;
+		  font-weight: bold;
+		 
+		}
+		.myFileBtn:hover{
+		background:red;
+		}
+				
+		.upload-btn-wrapper input[type=file] {
+		  font-size: 80px;
+		  position: absolute;
+		  left: 0;
+		  top: 0;
+		  opacity: 0;
+		}
+		
+		/*End of Css for upload button*/	
+		
+		/*css for encryption/decryption text box*/
+		.myEnDeHeader{
+	        width:100%;
+	        border-radius: 4px;
+	        align-self: center;
+	        height: 50px;
+	        padding-left:10px;
+	        font-family: 'Roboto', sans-serif;
+	        padding-top:10px;
+	        background: linear-gradient(to right, #00ccff 0%, #004d99 100%);
+	        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+	      }
+		.myTextAreaDiv {
+			  position: relative;
+			}			
+			
+			.copyIcon {
+			  position: absolute;			  
+			  color:#0080ff;
+			  left: 475px;
+			  bottom: 140px;
+			}
+			
+			#eoutputString,#doutputString{
+			padding-top:15px;
+			padding-right:17px;
+			}
+		/*End of Css for crypto page*/	
+			
+		/*Start of Css for Profile Page*/	
+	.aqua-gradient {
+      background: linear-gradient(40deg,#2096ff,#05ffa3)!important;
+      background-image: linear-gradient(40deg, rgb(32, 150, 255), rgb(5, 255, 163)) !important;
+      background-position-x: initial !important;
+      background-position-y: initial !important;
+      background-size: initial !important;
+      background-repeat-x: initial !important;
+      background-repeat-y: initial !important;
+      background-attachment: initial !important;
+      background-origin: initial !important;
+      background-clip: initial !important;
+      background-color: initial !important;
+    }
+    .testimonial-card .card-up {
+      overflow: hidden;
+      height: 120px;
+      border-top-left-radius: .25rem;
+      border-top-right-radius: .25rem;
+    }
+
+    .testimonial-card .avatar {
+      border-radius: 50%;
+      width: 120px;
+      margin-top: -60px;
+      overflow: hidden;
+      border: 5px solid #fff;
+    }
+    .myUserDiv input:focus{
+      border-bottom: 1px solid #007BFF;
+    }
+    .myUserDiv ul li input{
+      background: transparent;
+      outline: none;
+      border:none;
+      font-family: 'Playfair Display', serif;
+      font-size: 18px;
+
+      width: 80%;
+    }
+     .myUserDiv ul li i{
+     cursor:pointer
+     }
+    /*End of CSS for Profile Page*/	
+			

@@ -1,0 +1,361 @@
+<!doctype html>
+<html lang="en" ng-app="AutoTextSummarizer" ng-controller="AtsController">
+<head>
+  <title>Automatic Text Summarizer</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  
+  <!-- For Google Sign In API -->
+  <meta name="google-signin-client_id" content="1024713736130-bhg6h6k8oknknnkl200ee0526j7o7sae.apps.googleusercontent.com">
+  
+  <link href='https://fonts.googleapis.com/css?family=Sofia' rel='stylesheet'>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.0/css/all.css' integrity='sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ' crossorigin='anonymous'>
+  <link href="https://fonts.googleapis.com/css?family=Roboto:700" rel="stylesheet">
+  
+  <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.0/css/all.css' integrity='sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ' crossorigin='anonymous'>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  
+  <!--Custom Css-->
+  <link rel="stylesheet" type="text/css" href="../css/custom.css">
+  
+  <base href="/">
+
+
+</head>
+<body onload="myFunction()">
+<div id="loading"></div>
+
+<!--Nav bar Start-->
+   <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="myNav">
+      <a class="navbar-brand" href="/" style="color: #ffffff"><strong>Automatic Text Summarizer</strong></a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      
+      	<ul class="navbar-nav mr-auto">
+	      <li class="nav-item active">
+	        <a class="nav-link" style="color:white;" href="/"><strong>Home </strong><span class="sr-only">(current)</span></a>
+	      </li>
+                	
+         </ul>
+
+        <ul class="nav navbar-nav navbar-right">
+         <li ng-show="loggedIn==false" class="nav-item">
+            <a class="nav-link" style="color:white" href="#" class="pull-right"><small>Support </small><i class="fas fa-question-circle" style="margin-left:1px"></i></a>
+          </li>
+			
+          <li ng-show="loggedIn==false" class="nav-item">
+            <a class="nav-link" data-toggle="modal" data-target="#loginmodal"style="color:white" href="#" onclick="$('#loginmodal').modal({backdrop:'static',keyboard: false});" class="pull-right"><b>Log In</b> <i class="fas fa-sign-in-alt" style="margin-left:1px"></i></a>
+          </li>
+                   
+        </ul>
+        
+        <ul class="nav navbar-nav navbar-right">
+         <!-- Dropdown -->
+         <li ng-show="loggedIn==true" class="nav-item dropdown no-arrow">
+          <a class="nav-link dropdown-toggle" href="#" class="pull-right" id="navbardrop" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color:white">
+           <strong>Hello {{user.userFullname}}</strong><i class="fas fa-user-circle" style="margin-left:10px;"></i></a>
+
+           <div class="dropdown-menu">
+            <a class="dropdown-item" href="/profile"> <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400" style="color: blue"></i>Profile</a>
+            <div ng-controller="historyController"><a class="dropdown-item" ng-click="myHistory()" href="/history"> <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i> History</a></div>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" ng-click="logout()" href="#"> <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>Log Out</a>
+          </div>
+        </li>
+      </ul>
+    </div>
+   </nav>
+<!--Nav bar close-->
+    
+<!-- The Login Modal -->
+<div ng-controller="loginController">
+  <div class="modal fade" id="loginmodal">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" style="width:410px;height: auto">
+      <div class="modal-content">
+        <!-- Modal body -->
+        <div class="modal-body" id="modalBody">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <div class="box" style="padding:25px;padding-top:25px">
+            <p></p>
+             <form name="myLoginForm">
+             <div class="form-group">
+              <h4 class="modal-title" style="
+              font-weight: 500;
+              font-family: 'Roboto', sans-serif; font-size: 24px;
+              line-height: 1.4;
+              color: #000;">Log In</h4>
+             </div>
+             <div class="form-group">
+              <div style="margin-bottom:40px;">
+              
+               <button type="button" onclick="fb_login();" class="btn btn-block login-btn" style="color: #fff;background:#586cdf; height:49px; margin-bottom: 25px;" > <i class='fab fa-facebook-square'style='font-size:24px; margin-right:24px; left:-1000px'></i><b>LOG IN WITH FACEBOOK</b></button>
+               
+               <div id="my-signin2"></div>
+ 
+                <!-- <button type="button" class="btn btn-danger btn-block" style="color: #fff; height:49px;"> <i class='fab fa-google-plus-square' style='font-size:24px;margin-right:24px'></i><b>LOG IN WITH GOOGLE</b></button> -->
+              </div>
+             </div>
+             <div class="form-group">
+              <h5 id="or"><span>OR</span></h5>
+             </div>
+             <div class="inputBox">
+              <input type="email" ng-model="user.userEmail" name="email" required="">
+              <label>Email Address</label>
+             </div>
+             <div class="inputBox">
+              <input type="password" ng-model="user.userPass" name="pass" required="">
+              <label>Password</label>
+             </div>
+             <div class="form-group">
+              <button type="button" 
+				ng-disabled="myLoginForm.email.$invalid || myLoginForm.pass.$invalid" ng-click="userLogin()" data-dismiss="modal" class="btn btn-success btn-block login-btn" style="background:#55aa29; height:49px; font-size: 18px"><b>LOG IN</b></button>
+
+             <div class="form-group" style="text-align: center;margin-bottom: 10px; margin-top:18px">
+              <label><a onclick="$('#loginmodal').modal('hide'); $('#forgotModal').modal('show');" class="pull-right text-success">FORGOT PASSWORD</a></label>
+             </div>
+             <div class="form-group" style="text-align: center; margin-bottom: -30px">
+                <label>Don't Have Account?</label><a onclick="$('#loginmodal').modal('hide'); $('#signupmodal').modal('show');" href="#" class="pull-right text-success">CREATE ACCOUNT</a>
+             </div>
+           </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+ </div>
+<!-- End Of Login Modal -->
+
+<!-- Start Of Forgot Email Modal -->
+ <div class="modal fade" id="forgotModal">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" style="width:410px;height: auto">
+      <div class="modal-content">
+        <!-- Modal body -->
+        <div class="modal-body" id="modalBody">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <div class="box" style="padding:25px;padding-top:25px">
+            <p></p>
+            <form name="forgotForm">
+             <div class="form-group">
+              <h4 class="modal-title" style="
+              font-weight: 500;
+              font-family: 'Roboto', sans-serif; font-size: 24px;
+              line-height: 1.4;
+              color: #000;">FORGOT PASSWORD</h4>
+             </div>
+            <div class="inputBox">
+              <input type="email" ng-model="forgotEmail" name="email" required="">
+              <label>Email Address</label>
+            </div>
+            <div class="form-group">
+              <button type="button" ng-disabled="forgotForm.email.$invalid" ng-click="forgotPassword()" data-dismiss="modal" class="btn btn-success btn-block login-btn" style="background:#55aa29; height:49px; font-size: 18px"><b>Submit</b></button>
+
+              <div class="form-group" style="text-align: center; margin-bottom: -30px">
+               <a onclick="$('#forgotModal').modal('hide'); $('#loginmodal').modal('show');" class="pull-right text-success">Back to Login</a>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+ </div>
+ </div>
+<!-- End Of Forgot Email Modal -->
+
+<!-- The Signup Modal -->
+ <div class="modal fade" ng-controller="signupController" id="signupmodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style="width:420px; overflow-y: initial !important; max-height:85%; margin-top: 50px;">
+      <div class="modal-content">
+        <!-- Modal body -->
+            <div class="modal-body" id="modalBody" style="height: 600px;
+            overflow-y: auto;">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <div class="box" style="padding:25px;padding-top:25px">
+              <form name="signupForm">
+               <div class="form-group">
+                <h4 class="modal-title" style="
+                font-weight: 500;
+                font-family: 'Roboto', sans-serif; font-size: 24px;
+                line-height: 1.4;
+                color: #000;">CREATE AN ACCOUNT</h4>
+              </div>
+              <div class="form-group">
+                <div style="margin-bottom:40px;">
+                  <button type="button" class="btn btn-block login-btn" style="color: #fff;background:#586cdf; height:49px; margin-bottom: 25px;" > <i class='fab fa-facebook-square'style='font-size:24px;margin-right:24px'></i><b>SIGN IN WITH FACEBOOK</b></button>
+
+                </div>
+              </div>
+              <div class="form-group">
+                <h5 id="or"><span>OR</span></h5>
+              </div>
+              
+              					
+              <div class="inputBox">
+                <input type="text" ng-model="user.userFullname" name="fullname" required="">
+                <label>Full Name</label>
+              </div>
+              <div class="inputBox">
+                <input type="email" ng-model="user.userEmail" name="email" required="">
+                <label>Email Address</label>
+              </div>
+              <div class="inputBox">
+                <input type="password" ng-model="user.userPass" name="pass" required="">
+                <label>Password</label>
+              </div>
+              <div class="inputBox">
+                <input type="password" ng-model="user.userConpass" name="conpass" required="">
+                <label>Confirm Password</label>
+              </div>
+              <div class="inputBox">
+                <input type="text" ng-model="user.userAddress" name="address" required="">
+                <label>Address</label>
+              </div>
+
+              <div class="form-group">
+               <label class="pull-left checkbox-inline"><input type="checkbox"> Remember me</label>
+             </div>
+
+             <div class="form-group">
+              <button type="button" ng-disabled="signupForm.email.$invalid||signupForm.pass.$invalid ||signupForm.conpass.$invalid || signupForm.address.$invalid" ng-click="userSignup()" data-dismiss="modal" class="btn btn-success btn-block login-btn" style="background:#55aa29; height:49px;">CREATE 
+              ACCOUNT</button>
+
+             <div class="form-group" style="text-align: center;margin-bottom: -50px; margin-top:18px">
+              <label>Already have account?</label><a onclick="$('#signupmodal').modal('hide'); $('#loginmodal').modal('show');" href="#" class="pull-right text-success">LOG IN</a>
+             </div>
+            </div>
+           </form>
+         </div>
+       </div>
+     </div>
+   </div>
+ </div>
+<!--End Of Signup Modal -->
+
+
+
+<ng-view></ng-view>
+
+<!-- Facebook Login Script-->     
+	<script>
+	  window.fbAsyncInit = function() {
+	    FB.init({
+	      appId      : '859673114373999',
+	      cookie     : true,
+	      xfbml      : true,
+	      version    : 'v3.3'
+	    });
+	      
+	//Check login status:  if a person is already logged into your app with Facebook login
+	
+	    FB.getLoginStatus(function(response) {
+	       // statusChangeCallback(response);
+	    }); 
+	      
+	  };
+	
+	  (function(d, s, id){
+	     var js, fjs = d.getElementsByTagName(s)[0];
+	     if (d.getElementById(id)) {return;}
+	     js = d.createElement(s); js.id = id;
+	     js.src = "https://connect.facebook.net/en_US/sdk.js";
+	     fjs.parentNode.insertBefore(js, fjs);
+	   }(document, 'script', 'facebook-jssdk'));
+	  
+	  
+	  function fb_login(){
+	          FB.login(function(response) {
+	      
+	              if (response.authResponse) {
+	                  console.log('Welcome!  Fetching your information.... ');
+	                  //console.log(response); // dump complete info
+	                  access_token = response.authResponse.accessToken; //get access token
+	                  user_id = response.authResponse.userID; //get FB UID
+	      
+	                  FB.api('/me', 'GET',{fields: 'first_name, last_name, id'}, function(response){
+	                      console.log(response);
+	                  });
+	      
+	              } else {
+	                  //user hit cancel button
+	                  console.log('User cancelled login or not fully authorized.');
+	      
+	              }
+	          }, {
+	              scope: 'public_profile,email'
+	          });
+	      }
+	</script>
+<!--Facebook Login Script End -->
+
+
+<!-- Footer -->
+  <footer class="page-footer font-small blue">
+
+    <!-- Copyright -->
+    <div class="footer-copyright text-center py-3">© Copyright 2021 
+      <a href="#">Auto Text Summarizer </a>| All rights reserved.
+    </div>
+    <!-- Copyright -->
+
+  </footer>
+<!-- End Footer -->
+
+
+ <script>
+
+		function myFunction(){
+		var preloader = document.getElementById("loading");
+		preloader.style.display = 'none';
+	}
+ 
+		 function onSuccess(googleUser) {
+		      console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
+		      console.log('Logged in as: ' + googleUser.getBasicProfile().getEmail());
+		   //   document.cookie = "loggedIn=true";
+		//	  document.cookie = "userId=1";
+			 //window.location.href = '/home';
+			     
+		    }
+		    function onFailure(error) {
+		      console.log(error);
+		    }
+		    
+		    function renderButton() {
+		      gapi.signin2.render('my-signin2', {
+		        'scope': 'profile email',
+		        'width': 'auto',
+		        'height': 49,
+		        'longtitle': true,
+		        'theme': 'dark',
+		        'onsuccess': onSuccess,
+		        'onfailure': onFailure
+		      });
+		    }
+ </script>
+ 
+
+<script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
+<!--For Sweet Alert-->
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+<!-- For Google Sign In API -->
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-cookies.js"></script>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+<script type="text/javascript" src="../js/app.js"></script>
+<script type="text/javascript" src="../js/customScript.js"></script>
+
+
+
+</body>
+</html>

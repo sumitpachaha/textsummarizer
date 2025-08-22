@@ -1,0 +1,46 @@
+
+<div class="container" ng-controller="profileController"
+	style="margin-top: 65px">
+	<center>
+		<div class="card testimonial-card mt-2 mb-3 myUserDiv"
+			style="width: 23rem; -webkit-box-shadow: 0px 6px 13px 0px rgba(0, 0, 0, 0.75); -moz-box-shadow: 0px 6px 13px 0px rgba(0, 0, 0, 0.75); box-shadow: 0px 6px 13px 0px rgba(0, 0, 0, 0.75);">
+			<div class="card-up aqua-gradient"></div>
+			<div class="avatar mx-auto white">
+				<img src="../images/profile.jpg" class="card-img-top"
+					alt="profile_picture">
+			</div>
+			<div class="card-body">
+				<h4 class="card-title font-weight-bold">{{user.userFullname}}</h4>
+				<hr>
+				<p class="card-text">
+					<i class="far fa-clock text-primary" style="margin-right: 10px;"></i><span
+						id="datetime">{{ today | date : "fullDate" }}</span>
+				</p>
+			</div>
+			<form name="profileForm">
+				<ul class="list-group list-group-flush">
+					<li class="list-group-item"><input type="text" name="fname"
+						ng-model="user.userFullname" id="focusName" readonly required>
+						<i class="fas fa-pencil-alt text-primary" style=""
+						onclick="focusNameFun()"></i></li>
+					<li class="list-group-item"><input type="text" name="email"
+						ng-model="user.userEmail" id="focusEmail" readonly required>
+						<i class="fas fa-pencil-alt text-primary"
+						onclick="focusEmailFun()"></i></li>
+					
+					<li class="list-group-item"><input type="text" name="address"
+						ng-model="user.userAddress" id="focusAddress" readonly required>
+						<i class="fas fa-pencil-alt text-primary" onclick="focusAddFun()"></i>
+					</li>
+				</ul>
+				<div class="card-body">
+					<p ng-hide="profilePassErr==null" style="color: red;">{{profilePassErr}}</p>
+					<button class="btn btn-primary"
+						ng-disabled="profileForm.fname.$invalid || profileForm.email.$invalid||profileForm.pass.$invalid || profileForm.address.$invalid"
+						ng-click="updateProfile()" style="font-weight: bold">Update
+						Profile</button>
+				</div>
+			</form>
+		</div>
+	</center>
+</div>
