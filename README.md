@@ -1,1 +1,1 @@
-This is a text summarizer tool
+This is a text summarizer tool, used extractive summarization technique.
