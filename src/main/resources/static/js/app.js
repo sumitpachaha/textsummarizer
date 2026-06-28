@@ -1,8 +1,10 @@
  var app=angular.module("AutoTextSummarizer",["ngRoute", 'ngCookies']);
 
- app.run(['$rootScope', function($rootScope) {
-        $rootScope.API_URL = 'http://localhost:8080';
-    }]);
+ app.run(['$http', '$rootScope', function($http, $rootScope) {
+	 $http.get('/config/config.json').then(function(response) {
+		 $rootScope.API_URL = response.data.apiUrl;
+	 });
+ }]);
  
  //for Download
  app.config(['$compileProvider',
@@ -73,7 +75,7 @@
          	var retVal = confirm("Are You Sure to Logout ?");
                  if( retVal == true ) {
                 	 $rootScope.resetSession();
-                	 window.location.replace("http://localhost:8080/");
+                	 window.location.replace($rootScope.API_URL+ "/");
                      return true;
                  } else {
                     $scope.loggedIn=true;
@@ -92,7 +94,7 @@
 	      var user=$scope.user;
 	      console.log(user);
 	       $http({
-	          url:'http://127.0.0.1:8080/ats/login',
+	          url: $rootScope.API_URL+'/ats/login',
 	          method: "POST",
 	          data:user
 	        }).then(function(response){
@@ -126,7 +128,7 @@
 	     $scope.forgotPassword=function()
 	      {
 	        alert($scope.forgotEmail);
-	        var s='http://127.0.0.1:8080/ats/forgotpassword/'+$scope.forgotEmail;
+	        var s=$rootScope.API_URL+'/ats/forgotpassword/'+$scope.forgotEmail;
 	        alert(s);
 	        $http({
 	            url:s,
@@ -143,7 +145,7 @@
 	          }
 	  };
 
-  var signupController =  function($scope, $http){
+  var signupController =  function($scope, $http, $rootScope){
       $scope.user = {};
       $scope.errorMsz="";
       console.log('Hello Sign Up!!!');
@@ -175,7 +177,7 @@
 			}
 
         $http({
-          url: 'http://127.0.0.1:8080/ats/register',
+          url: $rootScope.API_URL+'/ats/register',
           method: "POST",
           data: user
         }).then(function(response){
@@ -211,7 +213,7 @@
         	return false;
         }
         $http({
-          url: 'http://127.0.0.1:8080/ats/getcontent',
+          url: $rootScope.API_URL+'/ats/getcontent',
           method: "POST",
           data: source
         }).then(function(response){
@@ -249,7 +251,7 @@
         	 return false;
         	}
         $http({
-          url: 'http://127.0.0.1:8080/ats/summary',
+          url: $rootScope.API_URL+'/ats/summary',
           method: "POST",
           data: source
         }).then(function(response){
@@ -310,7 +312,7 @@
 	   //function for display history data from database to the table
 	      $scope.myHistory=function(){
 	    	 // window.location.href = '/history';  
-	    	  var myUrl='http://127.0.0.1:8080/ats/history?id='+$rootScope.userId;
+	    	  var myUrl=$rootScope.API_URL+'/ats/history?id='+$rootScope.userId;
 	          $http({
 	          url:myUrl,
 	          method: "GET",
@@ -332,7 +334,7 @@
 	    	  var isConfirmed = confirm("Are you sure to delete this record ?");
 	          if(isConfirmed){
 	        	  $http({
-	    	          url:'http://127.0.0.1:8080/ats/history/'+hid,
+	    	          url:$rootScope.API_URL+'/ats/history/'+hid,
 	    	          method: "POST",
 	    	        }).then(function(response){   
 	    	        	 var ddata=response.data;
@@ -378,7 +380,7 @@
 	        	return false;
 	        }
 	        $http({
-	          url: 'http://127.0.0.1:8080/ats/update/'+$rootScope.userId,
+	          url: $rootScope.API_URL+'/ats/update/'+$rootScope.userId,
 	          method: "POST",
 	          data: user
 	        }).then(function(response){
@@ -413,7 +415,6 @@
     app.controller('loginController', loginController);    
     app.controller('summaryController', summaryController);
     app.controller('historyController', historyController);
-    app.controller('cryptoController', cryptoController);
-    app.controller('profileController', profileController); 
+    app.controller('profileController', profileController);
     
 
