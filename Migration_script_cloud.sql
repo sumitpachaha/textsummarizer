@@ -1,0 +1,11 @@
+create table hibernate_sequence (next_val bigint);
+insert into hibernate_sequence values ( 1 );
+select * from hibernate_sequence;
+create table summary (source_url varchar(255) not null, final_summary tinyblob, sentence_number integer not null, source_text varchar(255), user_active bit not null, user_id integer not null, primary key (source_url));
+create table userhistory (id integer not null, source longtext, summary longtext, time_consumed double precision not null, user_id integer, primary key (id));
+create table users (id integer not null, user_address varchar(255), user_email varchar(255), user_fullname varchar(255), user_pass varchar(255), primary key (id));
+create table users_user_history (user_id integer not null, user_history_id integer not null);
+alter table users_user_history add constraint UK_3xi1o4ltakobqi2ee65f0cq0e unique (user_history_id);
+alter table userhistory add constraint FK5gs4qtlmk59vfankeoanm1p7b foreign key (user_id) references users (id);
+alter table users_user_history add constraint FK5vmh2jsbtu0aetdj1u3r24nvl foreign key (user_history_id) references userhistory (id);
+alter table users_user_history add constraint FKg1cbbj0gwsiejf6v2rvrf6ctt foreign key (user_id) references users (id);

@@ -14,8 +14,9 @@ public class UserHistory {
 	private double timeConsumed;
 	@Lob
 	private String summary;
-	
+
 	@ManyToOne
+	@JoinColumn(name = "user_id", referencedColumnName = "id")
 	private User user;
 
 	public int getId() {

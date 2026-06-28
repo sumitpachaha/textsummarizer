@@ -10,7 +10,7 @@ import models.User;
 import models.UserHistory;
 
 
-
+@Repository
 public interface UserHistoryRepository extends JpaRepository<UserHistory, Integer> {
 	public UserHistory findById(int id);
 	public List<UserHistory> findAllByUser(User user);
